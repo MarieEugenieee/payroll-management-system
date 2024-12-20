@@ -1,0 +1,134 @@
+{% extends 'authority_base/authority_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+
+  
+{% block body %}
+<!-- Form Start -->
+<div class="container-fluid pt-4 px-4 m-auto">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Current Address</h6>
+                <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                    <div class="mb-3">
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label for="exampleInputEmail1" class="form-label">Country</label>
+                                {{present_address.present_country|add_class:"form-control"}}
+                            </div>
+                            <div class="col">
+                                <label for="exampleInputEmail1" class="form-label">Prk/Street</label>
+                                {{present_address.present_street|add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label for="exampleInputEmail1" class="form-label">Barangay</label>
+                                {{present_address.present_brgy | add_class:"form-control" }}
+                            </div>
+                            <div class="col">
+                                <label for="exampleInputPassword1" class="form-label">City/Municipality</label>
+                                {{present_address.present_city | add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label for="exampleInputEmail1" class="form-label">Province</label>
+                                {{present_address.present_province | add_class:"form-control" }}
+                            </div>
+                            <div class="col">
+                                <label for="exampleInputPassword1" class="form-label">Postal Code</label>
+                                {{present_address.present_post_code| add_class:"form-control"}}
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="mb-4">Permanent Address</h6>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" id ="same_as_current" name="same_as_current" onclick="fillPermanentAddress()">
+                        <label for = "same_as_current"> Same as current address</label>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label for="exampleInputEmail1" class="form-label">Country</label>
+                                {{permanent_address.permanent_country|add_class:"form-control"}}
+                            </div>
+                            <div class="col">
+                                <label for="exampleInputEmail1" class="form-label">Prk/Street</label>
+                                {{permanent_address.permanent_street|add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label for="exampleInputEmail1" class="form-label">Barangay</label>
+                                {{permanent_address.permanent_brgy | add_class:"form-control" }}
+                            </div>
+                            <div class="col">
+                                <label for="exampleInputPassword1" class="form-label">City/Municipality</label>
+                                {{permanent_address.permanent_city | add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label for="exampleInputEmail1" class="form-label">Province</label>
+                                {{permanent_address.permanent_province | add_class:"form-control" }}
+                            </div>
+                            <div class="col">
+                                <label for="exampleInputPassword1" class="form-label">Postal Code</label>
+                                {{permanent_address.permanent_post_code| add_class:"form-control"}}
+                            </div>
+                        </div>
+                    </div>
+                  <button type="submit" class="btn btn-success rounded-pill px-5">Save</button>
+                    <a href="{% url 'authority:employee_list' %}" class="btn btn-danger rounded-pill px-5 ms-2">Cancel</a>
+               </form>
+            </div>
+        </div>    
+    </div>
+</div>
+    
+<script>
+    function fillPermanentAddress() {
+        const checkbox = document.getElementById('same_as_current');
+        if (checkbox.checked) {
+            // Copy values from Present Address to Permanent Address
+            document.getElementById('id_permanent_country').value = document.getElementById('id_present_country').value;
+            document.getElementById('id_permanent_street').value = document.getElementById('id_present_street').value;
+            document.getElementById('id_permanent_brgy').value = document.getElementById('id_present_brgy').value;
+            document.getElementById('id_permanent_city').value = document.getElementById('id_present_city').value;
+            document.getElementById('id_permanent_province').value = document.getElementById('id_present_province').value;
+            document.getElementById('id_permanent_post_code').value = document.getElementById('id_present_post_code').value;
+    
+            // Disable Permanent Address fields
+            document.getElementById('id_permanent_country').readOnly = true;
+            document.getElementById('id_permanent_street').readOnly = true;
+            document.getElementById('id_permanent_brgy').readOnly = true;
+            document.getElementById('id_permanent_city').readOnly = true;
+            document.getElementById('id_permanent_province').readOnly = true;
+            document.getElementById('id_permanent_post_code').readOnly = true;
+        } else {
+            // Enable Permanent Address fields
+            document.getElementById('id_permanent_country').readOnly = false;
+            document.getElementById('id_permanent_street').readOnly = false;
+            document.getElementById('id_permanent_brgy').readOnly = false;
+            document.getElementById('id_permanent_city').readOnly = false;
+            document.getElementById('id_permanent_province').readOnly = false;
+            document.getElementById('id_permanent_post_code').readOnly = false;
+    
+            // Clear Permanent Address fields
+            document.getElementById('id_permanent_country').value = '';
+            document.getElementById('id_permanent_street').value = '';
+            document.getElementById('id_permanent_brgy').value = '';
+            document.getElementById('id_permanent_city').value = '';
+            document.getElementById('id_permanent_province').value = '';
+            document.getElementById('id_permanent_post_code').value = '';
+        }
+    }
+    </script>
+
+{% endblock body %}
+    

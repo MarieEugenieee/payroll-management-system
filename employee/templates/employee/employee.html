@@ -1,0 +1,127 @@
+{% extends 'employee_base/base_employee.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block body %}
+<!-- Sale & Revenue Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-12">
+            <div class="bg-dark rounded d-flex align-items-center justify-content-between p-4"> 
+                <div class="">
+                    <h6 class="mb-0 text-white">
+                        Office Time: {{office_start |time:"h:i A"}} to {{office_end |time:"h:i A"}} 
+                        | Time: <span id="clock"></span> 
+                        | Weekly Day Offs: {{off_day1}} 
+                        {% if off_day2  %}
+                            ,{{off_day2}}
+                        {% endif %}
+                        </h6>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<!-- Sale & Revenue End -->
+<!-- Sale & Revenue Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-info rounded d-flex align-items-center justify-content-between p-4">
+                
+                <div class="">
+                    <p class="mb-1 text-dark">Attendance({{current_month}})</p>
+                    <h6 class="mb-0 text-black"> {{total_attendance}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-success rounded d-flex align-items-center justify-content-between p-4">
+                <div class="ms-3">
+                    <p class="mb-2 text-white">Total Leave({{current_month}}) </p>
+                    <h6 class="mb-0 text-white"> {{leave}}/{{leave_permited}} </h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-danger rounded d-flex align-items-center justify-content-between p-4">
+                <div class="ms-3">
+                    <p class="mb-2 text-white">Late/s({{current_month}})</p>
+                    <h6 class="mb-0 text-white" > {{late}}/{{late_permited}} </h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-dark rounded d-flex align-items-center justify-content-between p-4">
+                <div class="ms-3">
+                    <p class="mb-2 text-white">Half Day/s({{current_month}})</p>
+                    <h6 class="mb-0 text-white"> {{half_day}}/{{half_day_permited}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sale & Revenue End -->
+
+<!-- Widgets Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-3">
+        <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="h-100 bg-light rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="mb-0">Notice Board</h6>
+                    <a href="{% url 'employee:employee_notice' %}">Show All</a>
+                </div>
+                {% if notices %}
+                    
+                    {% for notice in notices %}
+                        <div class="d-flex align-items-center border-bottom py-3">
+                            <div class="w-100 ms-3">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <a href="{% url 'employee:employee_notice_details' notice.id %}">
+                                        <h6 class="mb-0"> {{notice.subject |slice:"0:20"}}...</h6>
+                                    </a>
+                                    <small> {{notice.date}} </small>
+                                </div>
+                                <span> {{notice.created_by.profile.first_name}} {{notice.created_by.profile.last_name}}</span>
+                            </div>
+                        </div>
+                        
+                    {% endfor %}  
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-xl-6">
+            <div class="h-100 bg-light rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Calender</h6>
+                </div>
+                <div id="calender"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Widgets End -->
+
+<script>
+    function showTime() {
+        const now = new Date();
+        const hour = now.getHours();
+        const minute = now.getMinutes();
+        const second = now.getSeconds();
+        const meridiem = hour >= 12 ? 'PM' : 'AM';
+        const hour12 = hour % 12 || 12; // Convert to 12-hour format
+        const timeString = `${hour12}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')} ${meridiem}`;
+        document.getElementById('clock').textContent = timeString;
+      }
+      
+      setInterval(showTime, 1000); // Update every second
+      
+</script>
+
+
+{% endblock body %}
+
+{% block footer %}{% endblock footer %}

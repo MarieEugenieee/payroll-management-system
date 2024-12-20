@@ -1,0 +1,70 @@
+{% extends 'authority_base/authority_base.html' %} {% load static %} {% block
+  title %} {{ title }} {% block body %}
+  <div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">Add Account</h6>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+  
+      <!-- Email -->
+      <div class="mb-4">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="form-control"
+          required
+        />
+      </div>
+  
+      <!-- Password and Confirm Password -->
+      <div class="row mb-4">
+        <div class="col">
+          <label for="password1" class="form-label">Create Password</label>
+          <input
+            type="password"
+            name="password1"
+            id="password1"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col">
+          <label for="password2" class="form-label">Confirm Password</label>
+          <input
+            type="password"
+            name="password2"
+            id="password2"
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
+  
+      <!-- Roles -->
+      <div class="row mb-4">
+        <div class="col">
+          <label for="is_staff" class="form-label">Admin?</label>
+          <input
+            type="checkbox"
+            name="is_staff"
+            id="is_staff"
+            class="form-check-input"
+          />
+        </div>
+        <div class="col">
+          <label for="is_employee" class="form-label">Employee?</label>
+          <input
+            type="checkbox"
+            name="is_employee"
+            id="is_employee"
+            class="form-check-input"
+          />
+        </div>
+      </div>
+  
+        <button type="submit" class="btn btn-success rounded-pill px-5">Save</button>
+        <a href="{% url 'authority:employee_list' %}" class="btn btn-danger rounded-pill px-5 ms-2">Cancel</a>
+     </form>
+  </div>
+  {% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base_employee.html' %}
+
+{% block content %}
+    <h1>Welcome to your Employee Dashboard</h1>
+
+    <h2>Your Details</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the form fields -->
+
+        <button type="submit">Update Details</button>
+    </form>
+
+    <h3>Employee Information</h3>
+    <p><strong>First Name:</strong> {{ form.first_name.value }}</p>
+    <p><strong>Last Name:</strong> {{ form.last_name.value }}</p>
+    <p><strong>Email:</strong> {{ form.email.value }}</p>
+    <p><strong>Phone Number:</strong> {{ form.phone_number.value }}</p>
+    <p><strong>Address:</strong> {{ form.address.value }}</p>
+    <p><strong>Tax Information:</strong> {{ form.tax_info.value }}</p>
+    <p><strong>Bank Details:</strong> {{ form.bank_details.value }}</p>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="message">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

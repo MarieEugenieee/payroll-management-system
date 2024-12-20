@@ -1,0 +1,382 @@
+/********** Template CSS **********/
+:root {
+    --primary: #072768;  /* Deep blue */
+    --secondary: #50C878;  /* Mint green */
+    --light: #FFFFFF;  /* White */
+    --dark: #191C24;  /* Black */
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 45px;
+    bottom: 45px;
+    z-index: 99;
+}
+
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+/*** Button ***/
+.btn {
+    transition: .5s;
+}
+
+.btn.btn-primary {
+    color: var(--light);  
+    background-color: var(--primary);  /* Dark Blue Button Background */
+    border: none;
+}
+
+.btn.btn-primary:hover {
+    background-color: var(--secondary);  /* Emerald Green on Hover */
+}
+
+.btn.btn-success {
+    color: var(--light);  /* White text for primary buttons */
+    background-color: var(--secondary);  /* Dark Blue Button Background */
+    border: none;
+}
+
+.btn.btn-success:hover {
+    background-color: var(--primary);  /* Emerald Green on Hover */
+}
+
+.btn.btn-danger {
+    color: var(--light);  /* White text for primary buttons */
+    background-color: var(--dark);  /* Dark Blue Button Background */
+    border: none;
+}
+
+.btn.btn-danger:hover {
+    background-color: red;  /* Emerald Green on Hover */
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    border-radius: 50px;
+}
+
+.btn-custom-search {
+    background-color: var(--primary); /* Set the main background color */
+    color: var(--light); /* Set the text color */
+    border-color: var(--primary); /* Set the border color */
+}
+
+.btn-custom-search:hover {
+    background-color: var(--secondary); /* Set the hover background color */
+    color: var(--light); /* Set the hover text color */
+    border-color: var(--secondary); /* Set the hover border color */
+}
+
+
+/*** Layout ***/
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    height: 100vh;
+    overflow-y: auto;
+    background: #F3F6F9;  /* Dark Blue Sidebar */
+    transition: 0.5s;
+    z-index: 999;
+}
+
+.content {
+    margin-left: 250px;
+    min-height: 100vh;
+    background: var(--accent);  /* Light Background for Content */
+    transition: 0.5s;
+}
+
+@media (min-width: 992px) {
+    .sidebar {
+        margin-left: 0;
+    }
+
+    .sidebar.open {
+        margin-left: -250px;
+    }
+
+    .content {
+        width: calc(100% - 250px);
+    }
+
+    .content.open {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sidebar {
+        margin-left: -250px;
+    }
+
+    .sidebar.open {
+        margin-left: 0;
+    }
+
+    .content {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/*** Navbar ***/
+
+.navbar-nav .nav-item .fa {
+    font-size: 18px; /* Set a uniform size for all icons */
+    width: 20px; /* Add a fixed width to align icons properly */
+    text-align: center; /* Center-align icons within the width */
+}
+
+.sidebar .navbar .navbar-nav .nav-link {
+    padding: 7px 20px;
+    color: var(--primary);
+    font-weight: 500;
+    border-left: 5px solid var(--light);
+    outline: none;
+    background-color: var(--light); /* Dark Blue Background */
+    width: 300px;
+}
+
+.sidebar .navbar .navbar-nav .nav-link:hover,
+.sidebar .navbar .navbar-nav .nav-link.active {
+    color: var(--primary);
+    background: var(--accent);  /* Emerald Green on Hover */
+    border-color: var(--accent);
+}
+
+.sidebar .navbar .navbar-nav .nav-link i {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+}
+
+.sidebar .navbar .dropdown-toggle::after {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    transition: .5s;
+    color: var(--primary); /* White Arrow */
+}
+
+.sidebar .navbar .dropdown-toggle[aria-expanded=true]::after {
+    transform: rotate(-180deg);
+}
+
+.sidebar .navbar .dropdown-item {
+    padding-left: 30px;
+    background-color: var(--light);  /* Dark Blue Background for Dropdown */
+    color: var(--primary);
+    font-weight: 300;
+    border-left: 5px solid var(--light);
+    outline: none;
+    width: 300px;
+}
+
+.sidebar .navbar .dropdown-item:hover,
+.sidebar .navbar .dropdown-item.active {
+    color: var(--primary);
+    background: var(--accent);  /* Emerald Green on Hover */
+    border-color: var(--accent);
+}
+
+
+.sidebar-toggler i {
+    color: var(--primary); /* Set the color to the primary color */
+    font-size: 1.7rem; /* Increase the icon size slightly (adjust as needed) */
+    transition: color 0.3s ease; /* Add a smooth transition effect for color change */
+}
+
+.sidebar-toggler:hover i {
+    color: var(--secondary); /* Optionally change color on hover to your secondary color */
+}
+
+.custom-search {
+    border: 10px solid var(--primary); /* Set border color */
+    padding-right: 40px; /* Ensure space for the icon */
+    width: 400px; /* Increase the width of the search bar */
+    transition: all 0.3s ease; /* Smooth transition for focus */
+}
+
+.custom-search:focus {
+    border-color: var(--secondary); /* Change border color when focused */
+    outline: none; /* Remove the default outline */
+}
+
+.input-group-text {
+    background-color: transparent;
+    border-left: none; /* Remove the border between input and icon */
+}
+
+.input-group-text i {
+    color: var(--primary); /* Set the color of the search icon */
+    cursor: pointer; /* Make the icon clickable */
+    font-size: 1.6rem;
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.input-group-text i:hover {
+    color: var(--secondary); /* Hover color for the icon */
+}
+
+
+
+.content .navbar .navbar-nav .nav-link {
+    margin-left: 25px;
+    padding: 12px 0;
+    color: var(--dark);
+    outline: none;
+}
+
+.content .navbar .navbar-nav .nav-link:hover,
+.content .navbar .navbar-nav .nav-link.active {
+    color: var(--primary);
+}
+
+.content .navbar .navbar-nav .nav-link i {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);  /* White Background for Icons */
+    border-radius: 40px;
+}
+
+.content .navbar .dropdown-toggle::after {
+    margin-left: 6px;
+    vertical-align: middle;
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    transition: .5s;
+    color: var(--dark); /* Dark Icon Arrow */
+}
+
+.content .navbar .dropdown-toggle[aria-expanded=true]::after {
+    transform: rotate(-180deg);
+}
+
+@media (max-width: 575.98px) {
+    .content .navbar .navbar-nav .nav-link {
+        margin-left: 15px;
+    }
+}
+
+/*** Date Picker ***/
+.bootstrap-datetimepicker-widget.bottom {
+    top: auto !important;
+}
+
+.bootstrap-datetimepicker-widget .table * {
+    border-bottom-width: 0px;
+}
+
+.bootstrap-datetimepicker-widget .table th {
+    font-weight: 500;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu {
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover {
+    background: var(--primary);
+}
+
+.bootstrap-datetimepicker-widget table td.today::before {
+    border-bottom-color: var(--primary);
+}
+
+/*** Testimonial ***/
+.progress .progress-bar {
+    width: 0px;
+    transition: 2s;
+}
+
+/*** Testimonial ***/
+.testimonial-carousel .owl-dots {
+    margin-top: 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.testimonial-carousel .owl-dot {
+    position: relative;
+    display: inline-block;
+    margin: 0 5px;
+    width: 15px;
+    height: 15px;
+    border: 5px solid var(--primary);
+    border-radius: 15px;
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-dot.active {
+    background: var(--dark);
+    border-color: var(--primary);
+}
+
+/* Override the backdrop's z-index to allow interaction with the rest of the page */
+.modal-backdrop {
+    z-index: 1040 !important; /* Default z-index for modal */
+}
+
+/* Ensure other content is clickable by adding a higher z-index if needed */
+body {
+    z-index: 1050 !important; /* Set a higher z-index to allow interaction */
+}
+
+/* Employee List Table*/
+.custom-thead {
+    background-color: var(--primary); /* Replace with any color you like */
+    color: var(--light); /* Text color */
+}
