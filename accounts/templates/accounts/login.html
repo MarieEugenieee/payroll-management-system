@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    {% load static %}
+    <style>
+      /* General Styling */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #003366; /* Dark blue background */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Flex Container for Image and Form */
+      .flex-container {
+        display: flex;
+        max-width: 900px;
+        width: 100%;
+        background-color: #ffffff; /* Ensures the container background is white */
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Left Section (Logo and Welcome Message) */
+      .left-section {
+        background-color: #ffffff; /* White background for the logo section */
+        color: white;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 45%;
+        text-align: center;
+      }
+
+      .left-section img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      h1 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 20px;
+        color: #003366; /* Ensure text in the logo section matches the theme */
+      }
+
+      /* Right Section (Login Form) */
+      .form-container {
+        padding: 50px;
+        width: 55%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #003366;
+        margin-bottom: 30px;
+        font-size: 28px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+      }
+
+      label {
+        margin-bottom: 8px;
+        text-align: left;
+        font-weight: 500;
+        color: #333333;
+        font-size: 16px;
+      }
+
+      input {
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #003366;
+        border-radius: 6px;
+        outline: none;
+        font-size: 14px;
+        transition: all 0.3s ease-in-out;
+        background-color: #f4f6f9;
+      }
+
+      input:focus {
+        border-color: #006bb3;
+        background-color: #ffffff;
+      }
+
+      button {
+        padding: 14px;
+        background-color: #003366;
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      button:hover {
+        background-color: #006bb3;
+        transform: scale(1.05);
+      }
+
+      .forgot-password {
+        text-align: left;
+        margin-bottom: 30px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #003366;
+      }
+
+      .forgot-password a {
+        color: #003366;
+        text-decoration: none;
+      }
+
+      .forgot-password a:hover {
+        color: #006bb3;
+      }
+
+      .error-message {
+        color: red;
+        font-size: 14px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      /* Divider Styling */
+      .divider {
+        width: 1px;
+        background-color: #d1d1d1;
+        height: 100%;
+        margin: 0 20px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .flex-container {
+          flex-direction: column;
+          width: 90%;
+        }
+
+        .left-section,
+        .form-container {
+          width: 100%;
+        }
+
+        .divider {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex-container">
+      <!-- Left Section -->
+      <div class="left-section">
+        <img src="{% static 'img/logo.png' %}" alt="Logo" />
+        <h1>Welcome Back!</h1>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Login Form -->
+      <div class="form-container">
+        <h2>Login</h2>
+        <!-- Display Error Message if Login Fails -->
+        {% if form.errors %}
+        <div class="error-message">
+          {% for field in form %} {% for error in field.errors %}
+          <p>{{ error }}</p>
+          {% endfor %} {% endfor %} {% if not form.username.errors %}
+          <p>Invalid credentials. Please try again.</p>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        <form method="post">
+          {% csrf_token %}
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
+            required
+          />
+
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+
+          <div class="forgot-password">
+            <a href="{% url 'accounts:change_password' %}">Change Password</a>
+          </div>
+
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Password toggle functionality (if you plan to add it)
+      function togglePassword() {
+        var passwordField = document.getElementById("password");
+        passwordField.type =
+          passwordField.type === "password" ? "text" : "password";
+      }
+    </script>
+  </body>
+</html>
